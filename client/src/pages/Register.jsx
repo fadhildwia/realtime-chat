@@ -25,7 +25,7 @@ const Register = () => {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('chatting-user')) {
+    if (localStorage.getItem(import.meta.env.VITE_APP_LOCALHOST_KEY)) {
       navigate('/')
     }
   }, [])
@@ -43,7 +43,7 @@ const Register = () => {
         toast.error(data.msg, toastOptions)
       }
       if (data.status === true) {
-        localStorage.setItem('chatting-user', JSON.stringify(data.user))
+        localStorage.setItem(import.meta.env.VITE_APP_LOCALHOST_KEY, JSON.stringify(data.user))
       }
       navigate('/')
     }

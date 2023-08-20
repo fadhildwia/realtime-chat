@@ -23,7 +23,7 @@ const SetAvatar = () => {
   }
 
   useEffect(() => {
-    if (!localStorage.getItem('chatting-user')) {
+    if (!localStorage.getItem(import.meta.env.VITE_APP_LOCALHOST_KEY)) {
       navigate('/login')
     }
   }, [])
@@ -49,7 +49,7 @@ const SetAvatar = () => {
     if (selectedAvatar === undefined) {
       toast.error('Please select an avatar', toastOptions)
     } else {
-      const user = await JSON.parse(localStorage.getItem('chatting-user'))
+      const user = await JSON.parse(localStorage.getItem(import.meta.env.VITE_APP_LOCALHOST_KEY))
       const { data } = await axios.post(`${setAvatarRoute}/${user._id}`, {
         image: avatars[selectedAvatar]
       })
@@ -57,7 +57,7 @@ const SetAvatar = () => {
       if (data.isSet) {
         user.isAvatarImageSet = true
         user.avatarImage = data.image
-        localStorage.setItem('chatting-user', JSON.stringify(user))
+        localStorage.setItem(import.meta.env.VITE_APP_LOCALHOST_KEY, JSON.stringify(user))
         navigate('/')
       } else {
         toast.error('Error setting avatar. Please try again', toastOptions)
