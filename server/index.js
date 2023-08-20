@@ -14,7 +14,7 @@ app.use(express.json())
 app.use('/api/auth', userRoutes)
 app.use('/api/messages', messageRoutes)
 
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
