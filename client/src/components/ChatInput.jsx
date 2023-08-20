@@ -32,9 +32,11 @@ export default function ChatInput({ handleSendMsg }) {
       <div className="button-container">
         <div className="emoji">
           <BsEmojiSmileFill onClick={handleEmojiPickerhideShow} />
-          <div className="emoji-picker-react">
-            {showEmojiPicker && <Picker theme="dark" emojiStyle="twitter" onEmojiClick={handleEmojiClick} />}
-          </div>
+          {showEmojiPicker ? (
+            <div className="emoji-picker-react">
+              <Picker theme="dark" emojiStyle="twitter" onEmojiClick={handleEmojiClick} />
+            </div>
+          ) : null}
         </div>
       </div>
       <form className="input-container" onSubmit={(event) => sendChat(event)}>

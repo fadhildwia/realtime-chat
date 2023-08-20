@@ -6,7 +6,7 @@ import Logout from "./Logout"
 import axios from "axios"
 import { getAllMessageRoute, sendMessageRoute } from "../utils/APIRoutes"
 
-export default function ChatContainer({ currentChat, currentUser, socket }) {
+export default function ChatContainer({ currentChat, socket }) {
   const scrollRef = useRef()
 
   const [messages, setMessages] = useState([])
@@ -14,14 +14,14 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      // const data = JSON.parse(
-      //   localStorage.getItem(import.meta.env.VITE_APP_LOCALHOST_KEY)
-      // )
+      const data = JSON.parse(
+        localStorage.getItem(import.meta.env.VITE_APP_LOCALHOST_KEY)
+      )
   
       if (currentChat) {
         try {
           const response = await axios.post(getAllMessageRoute, {
-            from: currentUser._id,
+            from: data._id,
             to: currentChat._id,
           })
           setMessages(response.data)
@@ -51,19 +51,19 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
   }, [messages])
 
   const handleSendMsg = async (msg) => {
-    // const data = await JSON.parse(
-    //   localStorage.getItem(import.meta.env.VITE_APP_LOCALHOST_KEY)
-    // )
+    const data = await JSON.parse(
+      localStorage.getItem(import.meta.env.VITE_APP_LOCALHOST_KEY)
+    )
 
     await axios.post(sendMessageRoute, {
-      from: currentUser._id,
+      from: data._id,
       to: currentChat._id,
       message: msg,
     })
 
     socket.current.emit('send-msg', {
+      from: data._id,
       to: currentChat._id,
-      from: currentUser._id,
       message: msg
     })
 

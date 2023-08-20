@@ -63,7 +63,7 @@ const Chat = () => {
         {!isLoading && currentChat === undefined ? (
             <Welcome currentUser={currentUser} />
           ) : (
-            <ChatContainer currentChat={currentChat} currentUser={currentUser} socket={socket} />
+            <ChatContainer currentChat={currentChat} socket={socket} />
           )}
       </div>
     </Container>
