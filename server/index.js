@@ -28,7 +28,8 @@ mongoose.connect(process.env.MONGODB_URI, {
 const io = socket(server, {
   cors: {
     origin: process.env.SOCKET_ORIGIN_URL,
-    methods: ['GET', 'POST']
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Authorization', 'Content-Type']
   }
 })
 
