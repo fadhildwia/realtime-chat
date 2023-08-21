@@ -7,6 +7,10 @@ import "react-toastify/dist/ReactToastify.css"
 import axios from 'axios'
 import { loginRoute } from '../utils/APIRoutes'
 
+const headers = {
+  'Content-Type': 'application/json',
+}
+
 const Login = () => {
   const navigate = useNavigate()
   const [values, setValues] = useState({
@@ -35,7 +39,7 @@ const Login = () => {
       const { data } = await axios.post(loginRoute, {
         username,
         password
-      })
+      }, { headers: headers })
       if (data.status === false) {
         toast.error(data.msg, toastOptions)
       }
