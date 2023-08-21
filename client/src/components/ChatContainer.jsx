@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import ChatInput from "./ChatInput"
 import Logout from "./Logout"
-import axios from "axios"
 import { getAllMessageRoute, sendMessageRoute } from "../utils/APIRoutes"
+import { request } from "../configs/request"
 
 export default function ChatContainer({ currentChat, socket }) {
   const scrollRef = useRef()
@@ -20,7 +20,7 @@ export default function ChatContainer({ currentChat, socket }) {
   
       if (currentChat) {
         try {
-          const response = await axios.post(getAllMessageRoute, {
+          const response = await request.post(getAllMessageRoute, {
             from: data._id,
             to: currentChat._id,
           })
@@ -55,7 +55,7 @@ export default function ChatContainer({ currentChat, socket }) {
       localStorage.getItem(import.meta.env.VITE_APP_LOCALHOST_KEY)
     )
 
-    await axios.post(sendMessageRoute, {
+    await request.post(sendMessageRoute, {
       from: data._id,
       to: currentChat._id,
       message: msg,

@@ -4,12 +4,8 @@ import styled from 'styled-components'
 import Logo from '../assets/logo.png'
 import { ToastContainer, toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
-import axios from 'axios'
 import { loginRoute } from '../utils/APIRoutes'
-
-const headers = {
-  'Content-Type': 'application/json',
-}
+import { request } from '../configs/request'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -36,10 +32,10 @@ const Login = () => {
     event.preventDefault()
     if (handleValidation()) {
       const { password, username } = values
-      const { data } = await axios.post(loginRoute, {
+      const { data } = await request.post(loginRoute, {
         username,
         password
-      }, { headers: headers })
+      })
       if (data.status === false) {
         toast.error(data.msg, toastOptions)
       }

@@ -1,10 +1,10 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
 import { ToastContainer, toast } from "react-toastify"
 import styled from "styled-components"
 import loader from "../assets/loader.gif"
 import { setAvatarRoute } from "../utils/APIRoutes"
 import { useNavigate } from "react-router-dom"
+import { request } from "../configs/request"
 
 const SetAvatar = () => {
   const api = 'https://api.multiavatar.com'
@@ -32,7 +32,7 @@ const SetAvatar = () => {
     const getImage = async () => {
       const data = []
       for (let i = 0; i < 4; i++) {
-        const response = await axios.get(
+        const response = await request.get(
           `${api}/${Math.round(Math.random() * 1000)}.svg`, // Use .svg extension
           { responseType: "text" }
         );
@@ -50,7 +50,7 @@ const SetAvatar = () => {
       toast.error('Please select an avatar', toastOptions)
     } else {
       const user = await JSON.parse(localStorage.getItem(import.meta.env.VITE_APP_LOCALHOST_KEY))
-      const { data } = await axios.post(`${setAvatarRoute}/${user._id}`, {
+      const { data } = await request.post(`${setAvatarRoute}/${user._id}`, {
         image: avatars[selectedAvatar]
       })
 

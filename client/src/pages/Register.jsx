@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import Logo from '../assets/logo.png'
 import { ToastContainer, toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
-import axios from 'axios'
 import { registerRoute } from '../utils/APIRoutes'
+import { request } from '../configs/request'
 
 const Register = () => {
   const navigate = useNavigate()
@@ -34,7 +34,7 @@ const Register = () => {
     event.preventDefault()
     if (handleValidation()) {
       const { password, username, email } = values
-      const { data } = await axios.post(registerRoute, {
+      const { data } = await request.post(registerRoute, {
         username,
         email,
         password

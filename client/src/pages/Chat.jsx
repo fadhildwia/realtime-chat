@@ -1,4 +1,3 @@
-import axios from "axios"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
@@ -7,6 +6,7 @@ import Contacts from "../components/Contacts"
 import Welcome from "../components/Welcome"
 import ChatContainer from "../components/ChatContainer"
 import { io } from 'socket.io-client'
+import { request } from "../configs/request"
 
 const Chat = () => {
   const navigate = useNavigate()
@@ -41,7 +41,7 @@ const Chat = () => {
     const functionCurrentUser = async () => {
       if (currentUser) {
         if (currentUser.isAvatarImageSet) {
-          const data = await axios.get(`${allUsersRoute}/${currentUser._id}`)
+          const data = await request.get(`${allUsersRoute}/${currentUser._id}`)
           setContacts(data.data)
         } else {
           navigate('/setAvatar')
