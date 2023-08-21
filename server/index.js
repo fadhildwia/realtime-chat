@@ -28,7 +28,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 const io = socket(server, {
   cors: {
     origin: '*',
-    methods: ['GET', 'POST']
+    creditials: true
   }
 })
 
