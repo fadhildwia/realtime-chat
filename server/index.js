@@ -25,10 +25,6 @@ mongoose.connect(process.env.MONGODB_URI, {
   console.log(err.message)
 })
 
-server.listen(process.env.PORT, () => {
-  console.log(`Server started on port ${process.env.PORT}`)
-})
-
 const io = socket(server, {
   cors: {
     origin: process.env.SOCKET_ORIGIN_URL,
@@ -51,4 +47,8 @@ io.on('connection', (socket) => {
       socket.to(sendUserSocket).emit('msg-receive', data.message)
     }
   })
+})
+
+server.listen(process.env.PORT, () => {
+  console.log(`Server started on port ${process.env.PORT}`)
 })
