@@ -22,14 +22,13 @@ mongoose.connect(process.env.MONGODB_URI, {
 }).then(() => {
   console.log("DB Connection Successful")
 }).catch((err) => {
-  console.log(err.message)
+  console.error("DB Connection Error:", err)
 })
 
 const io = socket(server, {
   cors: {
     origin: process.env.SOCKET_ORIGIN_URL,
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Authorization', 'Content-Type']
+    methods: ['GET', 'POST']
   }
 })
 
@@ -42,11 +41,18 @@ io.on('connection', (socket) => {
   })
 
   socket.on('send-msg', (data) => {
-    console.log('data', data)
     const sendUserSocket = onlineUsers.get(data.to)
     if (sendUserSocket) {
       socket.to(sendUserSocket).emit('msg-receive', data.message)
     }
+  })
+
+  socket.on('disconnect', () => {
+    onlineUsers.forEach((value, key) => {
+      if (value === socket.id) {
+        onlineUsers.delete(key)
+      }
+    })
   })
 })
 
