@@ -32,7 +32,9 @@ const Chat = () => {
 
   useEffect(() => {
     if (currentUser) {
-      socket.current = io(host)
+      socket.current = io(host, {
+        withCredentials: true
+      })
       socket.current.emit("add-user", currentUser._id)
     }
   }, [currentUser])
@@ -61,10 +63,10 @@ const Chat = () => {
       <div className="container">
         <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange} />
         {!isLoading && currentChat === undefined ? (
-            <Welcome currentUser={currentUser} />
-          ) : (
-            <ChatContainer currentChat={currentChat} socket={socket} />
-          )}
+          <Welcome currentUser={currentUser} />
+        ) : (
+          <ChatContainer currentChat={currentChat} socket={socket} />
+        )}
       </div>
     </Container>
   )
