@@ -13,7 +13,8 @@ const io = socket(server, {
   cors: {
     origin: '*',
     creditials: true
-  }
+  },
+  transports: ['websocket', 'polling']
 });
 
 app.use(cors())
