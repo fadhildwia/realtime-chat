@@ -6,6 +6,7 @@ const userRoutes = require('./routes/user.route')
 const messageRoutes = require('./routes/messages.route')
 
 const app = express()
+const port = process.env.PORT || 3000
 require('dotenv').config()
 
 app.use(cors())
@@ -23,7 +24,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   console.log(err.message)
 })
 
-const server = app.listen(process.env.PORT, () => {
+const server = app.listen(port, () => {
   console.log(`Server started on port ${process.env.PORT}`)
 })
 
