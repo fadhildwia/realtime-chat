@@ -29,7 +29,7 @@ const server = app.listen(process.env.PORT, () => {
 
 const io = socket(server, {
   cors: {
-    origin: '*',
+    origin: ["https://realtime-chat-mern-socket-io.vercel.app", "http://localhost:3000"],
     creditials: true
   }
 })
