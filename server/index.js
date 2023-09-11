@@ -13,7 +13,10 @@ const io = socket(server, {
   cors: {
     origin: ["https://realtime-chat-mern-socket-io.vercel.app", "http://localhost:5173"],
     methods: ["GET", "POST"],
-    credentials: true
+    credentials: true,
+    path: '/socket.io',
+    transports: ['websocket'],
+    secure: true,
   },
 });
 
