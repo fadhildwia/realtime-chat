@@ -11,10 +11,10 @@ require('dotenv').config()
 const server = http.createServer(app);
 const io = socket(server, {
   cors: {
-    origin: '*',
-    creditials: true
+    origin: ["https://realtime-chat-mern-socket-io.vercel.app", "http://localhost:5173"],
+    methods: ["GET", "POST"],
+    credentials: true
   },
-  transports: ['websocket', 'polling']
 });
 
 app.use(cors())
